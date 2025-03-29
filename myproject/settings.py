@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from os import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$$nbun2s##_$6@qyv#=^p*9n$arsc^gma^4l%qod(%71*u*=ms'
+SECRET_KEY = environ.get("DJANGO_SECRET_KEY",)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", "").split(",") if os.environ.get("DJANGO_ALLOWED_HOSTS") else []
 
 
 # Application definition
@@ -78,14 +79,20 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DB_USER = environ.get("DB_USER")
+DB_PASSWORD = environ.get("DB_PASSWORD")
+DB_HOST = environ.get("DB_HOST")
+DB_PORT = environ.get("DB_PORT")
+DB_NAME = environ.get("DB_NAME")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'store_hlk3',
-        'USER': 'store_hlk3_user',
-        'PASSWORD': 'qIFRu5pcdv0vpwGuePKPzQc5kO2JA49u',
-        'HOST': 'dpg-cvjfvbhr0fns73alok40-a.singapore-postgres.render.com',
-        'PORT': '5432',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
 
