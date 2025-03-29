@@ -5,7 +5,7 @@ description = ""
 authors = [
     {name = "your-name",email = "you@example.com"}
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = [
     "djangorestframework (>=3.16.0,<4.0.0)",
     "psycopg2-binary (>=2.9.10,<3.0.0)",
